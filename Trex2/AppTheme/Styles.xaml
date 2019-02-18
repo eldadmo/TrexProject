@@ -1,0 +1,6 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:AppTheme">
+    <GridLength x:Key="GridSeparatorMinor">5</GridLength>
+    <GridLength x:Key="GridSeparatorMajor">10</GridLength>
+</ResourceDictionary>
