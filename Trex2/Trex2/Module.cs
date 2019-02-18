@@ -11,6 +11,7 @@ namespace Trex2
             builder.RegisterType<ShellWindowViewModel>().As<IShellWindowViewModel>().SingleInstance();
             builder.RegisterType<MainViewModel>().As<IMainViewModel>().SingleInstance();
             builder.RegisterType<DetailsViewModel>().As<IDetailsViewModel>().SingleInstance();
+            builder.RegisterType<SubscribersViewModel>().As<ISubscribersViewModel>().SingleInstance();
         }
     }
 }

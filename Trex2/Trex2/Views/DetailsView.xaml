@@ -27,12 +27,18 @@
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="{StaticResource GridSeparatorMinor}"/>
                 <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="{StaticResource GridSeparatorMinor}"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="{StaticResource GridSeparatorMinor}"/>
+                <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
             <TextBlock Text="First Name" VerticalAlignment="Center"/>
             <TextBox Name="FirstName" Grid.Column="2" VerticalAlignment="Center" MinWidth="120"/>
             <TextBlock  Grid.Column="4" Text="Last Name" VerticalAlignment="Center"/>
             <TextBox Grid.Column="6" Name="LastName" VerticalAlignment="Center" MinWidth="120"/>
-            <Button Grid.Row="2" Grid.Column="6" HorizontalAlignment="Right"  Name="Submit">
+            <TextBlock  Grid.Column="8" Text="Email" VerticalAlignment="Center"/>
+            <TextBox Grid.Column="10" Name="Email" VerticalAlignment="Center" MinWidth="120"/>
+            <Button Grid.Row="2" Grid.Column="10" HorizontalAlignment="Right"  Name="Submit">
                 <Button.Style>
                     <Style TargetType="Button" BasedOn="{StaticResource MahApps.Metro.Styles.MetroButton}">
                         <Setter Property="Content" Value="Submit"/>
