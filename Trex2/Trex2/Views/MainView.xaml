@@ -12,11 +12,20 @@
             <Setter Property="Background" Value="White"/>
         </Style>
     </d:DesignerProperties.DesignStyle>
-    <ItemsControl ItemsSource="{Binding Path=Items}">
-        <ItemsControl.ItemTemplate>
-            <DataTemplate>
-                <ContentControl cal:View.Model="{Binding}" Padding="2" Margin="4"/>
-            </DataTemplate>
-        </ItemsControl.ItemTemplate>
-    </ItemsControl>
+    <DockPanel>
+        <StatusBar DockPanel.Dock="Bottom">
+            <StatusBarItem>
+                <TextBlock Name="NotificationArea"/>
+            </StatusBarItem>
+        </StatusBar>
+        <ItemsControl ItemsSource="{Binding Path=Items}">
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <ContentControl cal:View.Model="{Binding}" Padding="2" Margin="4"/>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+
+    </DockPanel>
+
 </UserControl>

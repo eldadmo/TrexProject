@@ -49,7 +49,7 @@ namespace Trex2.ViewModels
                 x.LastName.Equals(message.LastName) && x.FirstName.Equals(message.FirstName));
             if (person != null)
             {
-                //TODO : Create Notice
+                _eventAggregator.PublishOnUIThread("Person is Already Exist");
             }
             else
             {
