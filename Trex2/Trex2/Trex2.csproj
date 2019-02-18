@@ -81,9 +81,12 @@
     </ApplicationDefinition>
     <Compile Include="Contracts\IDetailsViewModel.cs" />
     <Compile Include="Contracts\IShellWindowViewModel.cs" />
+    <Compile Include="Contracts\ISubscribersViewModel.cs" />
+    <Compile Include="Models\Person.cs" />
     <Compile Include="Module.cs" />
     <Compile Include="Contracts\IMainViewModel.cs" />
     <Compile Include="ViewModels\DetailsViewModel.cs" />
+    <Compile Include="ViewModels\SubscribersViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\ShellWindowViewModel.cs" />
     <Compile Include="Views\DetailsView.xaml.cs">
@@ -94,6 +97,9 @@
     </Compile>
     <Compile Include="Views\ShellWindowView.xaml.cs">
       <DependentUpon>ShellWindowView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\SubscribersView.xaml.cs">
+      <DependentUpon>SubscribersView.xaml</DependentUpon>
     </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -117,6 +123,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\ShellWindowView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\SubscribersView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

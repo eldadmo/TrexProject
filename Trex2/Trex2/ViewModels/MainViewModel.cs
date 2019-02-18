@@ -5,9 +5,11 @@ namespace Trex2.ViewModels
 {
     public class MainViewModel : Conductor<IScreen>.Collection.AllActive, IMainViewModel
     {
-        public MainViewModel(IDetailsViewModel detailsViewModel)
+        public MainViewModel(IDetailsViewModel detailsViewModel, ISubscribersViewModel subscribersViewModel)
         {
-            ActivateItem(detailsViewModel);
+            Items.Add(detailsViewModel);
+            Items.Add(subscribersViewModel);
+            //ActivateItem(detailsViewModel);
         }
 
         public sealed override void ActivateItem(IScreen item)

@@ -1,18 +1,21 @@
 ﻿using System.Threading.Tasks;
 using Caliburn.Micro;
 using Trex2.Contracts;
+using Trex2.Models;
 
 namespace Trex2.ViewModels
 {
     public class DetailsViewModel : Screen , IDetailsViewModel
     {
+        private readonly IEventAggregator _eventAggregator;
         private string _firstName;
         private string _lastName;
         private bool _canSubmit;
         private bool _isBusy;
 
-        public DetailsViewModel()
+        public DetailsViewModel(IEventAggregator eventAggregator)
         {
+            _eventAggregator = eventAggregator;
             CheckFields();
         }
 
@@ -71,8 +74,12 @@ namespace Trex2.ViewModels
         {
             CanSubmit = false;
             IsBusy = true;
-            await Task.Run(() => { Task.Delay(4000).Wait(); });
-            //Todo -> Create a list with submit history
+            await Task.Run(() =>
+            {
+                Task.Delay(350).Wait();
+                var message = new Person {FirstName = FirstName, LastName = LastName};
+                _eventAggregator.PublishOnUIThread(message);
+            });         
             CanSubmit = true;
             IsBusy = false;
         }

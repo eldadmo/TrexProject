@@ -20,8 +20,7 @@ namespace RestClient
 
         protected override void Configure()
         {
-            base.Configure();
-
+            base.Configure();           
             var builder = new ContainerBuilder();
 
             RegisterTypes(builder);
@@ -38,6 +37,7 @@ namespace RestClient
         private static void RegisterTypes(ContainerBuilder builder)
         {
             builder.RegisterType<WindowManager>().As<IWindowManager>().SingleInstance();
+            builder.RegisterType<EventAggregator>().As<IEventAggregator>().SingleInstance();
         }
 
         protected override void OnStartup(object sender, StartupEventArgs e)
