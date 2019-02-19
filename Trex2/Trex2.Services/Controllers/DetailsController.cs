@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
 using Trex2.Common.Models;
 using Trex2.Services.Contracts;
 using Trex2.Services.Data;
@@ -28,12 +28,12 @@ namespace Trex2.Services.Controllers
             throw new System.NotImplementedException();
         }
 
-        public async Task<Person> Post(Person Person)
+        public Task<Person> Post(Person Person)
         {
             if (Person == null) return null;
-            var result = await _context.PersonDetails.AddAsync(Person);
+            var result = _context.PersonDetails.Add(Person);
             _context.SaveChanges();
-            return result.Entity;
+            return Task.FromResult(result);
         }
 
         public Task<Person> Put(int PersonId, Person Person)
