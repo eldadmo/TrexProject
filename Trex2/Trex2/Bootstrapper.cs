@@ -31,7 +31,6 @@ namespace RestClient
         private void RegisterModule(ContainerBuilder builder)
         {
             builder.RegisterModule<Module>();
-            builder.RegisterModule<Trex2.Services.Module>();
         }
 
 

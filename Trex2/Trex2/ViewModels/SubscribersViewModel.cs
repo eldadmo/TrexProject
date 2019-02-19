@@ -1,46 +1,17 @@
 ﻿using System.Linq;
 using Caliburn.Micro;
-using Trex2.Common.Models;
 using Trex2.Contracts;
-using Trex2.Services.Contracts;
+using Trex2.Models;
 
 namespace Trex2.ViewModels
 {
     public class SubscribersViewModel : Screen, ISubscribersViewModel, IHandle<Person>
     {
         private readonly IEventAggregator _eventAggregator;
-        private readonly IDetailsController _detailsController;
         private Person _selectedItem;
         private bool _canUnSubscribe;
-        private IObservableCollection<Person> _subscribers;
+        public IObservableCollection<Person> Subscribers { get; set; }
 
-
-
-        public SubscribersViewModel(IEventAggregator eventAggregator, IDetailsController detailsController)
-        {
-            _eventAggregator = eventAggregator;
-            _detailsController = detailsController;
-            UpdateSubscribers();
-            eventAggregator.Subscribe(this);
-            
-        }
-
-        private async void UpdateSubscribers()
-        {
-            var items = await _detailsController.Get();
-            Subscribers = new BindableCollection<Person>();
-            Subscribers.AddRange(items);                    
-        }
-        public IObservableCollection<Person> Subscribers
-        {
-            get => _subscribers;
-            set
-            {
-                if (Equals(value, _subscribers)) return;
-                _subscribers = value;
-                NotifyOfPropertyChange();
-            }
-        }
         public Person SelectedItem
         {
             get => _selectedItem;
@@ -64,32 +35,33 @@ namespace Trex2.ViewModels
             }
         }
 
-        public async void Handle(Person person)
+        public SubscribersViewModel(IEventAggregator eventAggregator)
         {
-            if (person == null) return;
-            if (Subscribers.FirstOrDefault(x => x.Id == person.Id) != null)
+            _eventAggregator = eventAggregator;
+            eventAggregator.Subscribe(this);
+            Subscribers = new BindableCollection<Person>();
+        }
+
+        public void Handle(Person message)
+        {
+            if (message == null) return;
+            var person = Subscribers.FirstOrDefault(x =>
+                x.LastName.Equals(message.LastName) && x.FirstName.Equals(message.FirstName));
+            if (person != null)
             {
                 _eventAggregator.PublishOnUIThread("Person is Already Exist");
             }
             else
             {
-                var details = await _detailsController.Post(person);
-                Subscribers.Add(details);
+                Subscribers.Add(message);
             }
                 
         }
         
-        public async void UnSubscribe()
+        public void UnSubscribe()
         {
             if(SelectedItem==null) return;
-            if (await _detailsController.Delete(SelectedItem.Id))
-            {
-                Subscribers.Remove(SelectedItem);
-            }
-            else
-            {
-                _eventAggregator.PublishOnUIThread($"Can't remove the following Person {SelectedItem.Id}");
-            }
+            Subscribers.Remove(SelectedItem);
             SelectedItem = null;
         }
     }
