@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
 using Caliburn.Micro;
+using Trex2.Common.Models;
 using Trex2.Contracts;
-using Trex2.Models;
 
 namespace Trex2.ViewModels
 {
