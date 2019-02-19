@@ -8,7 +8,7 @@
         xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
         xmlns:cal="http://www.caliburnproject.org"
         mc:Ignorable="d"
-        Title="T-Rex application" Height="450" Width="800">
+        Title="{Binding Title}" Height="450" Width="800">
 
     <ContentControl cal:View.Model="{Binding ActiveItem}"/>
 
