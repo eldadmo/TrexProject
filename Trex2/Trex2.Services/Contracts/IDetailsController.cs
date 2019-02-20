@@ -9,7 +9,7 @@ namespace Trex2.Services.Contracts
         Task<List<Person>> Get();
         Task<Person> Get(int PersonId);
         Task<Person> Post(Person Person);
-        Task<Person> Put(int PersonId, Person Person);
+        Task<bool> Put(int PersonId, Person Person);
         Task<bool> Delete(int PersonId);
     }
 }

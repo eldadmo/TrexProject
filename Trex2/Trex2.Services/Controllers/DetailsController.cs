@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Data.Entity;
+using System.Data.Entity.Migrations;
 using System.Linq;
 using System.Threading.Tasks;
 using Trex2.Common.Models;
@@ -36,9 +37,18 @@ namespace Trex2.Services.Controllers
             return Task.FromResult(result);
         }
 
-        public Task<Person> Put(int PersonId, Person Person)
+        public Task<bool> Put(int PersonId, Person Person)
         {
-            throw new System.NotImplementedException();
+            if (!_context.PersonDetails.Any(x => x.Id == PersonId))
+            {
+                return Task.FromResult(false);
+            }
+            else
+            {
+                _context.PersonDetails.AddOrUpdate(Person);
+                _context.SaveChanges();
+            }
+            return Task.FromResult(true);
         }
 
         public Task<bool> Delete(int PersonId)

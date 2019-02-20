@@ -8,7 +8,7 @@ using Trex2.Services.Contracts;
 
 namespace Trex2.ViewModels
 {
-    public class SubscribersViewModel : Screen, ISubscribersViewModel, IHandle<PersonAddEvent>
+    public class SubscribersViewModel : Screen, ISubscribersViewModel, IHandle<PersonAddEvent> ,IHandle<PersonDetailsUpdate>
     {
         private readonly IEventAggregator _eventAggregator;
         private readonly IDetailsController _detailsController;
@@ -99,6 +99,23 @@ namespace Trex2.ViewModels
                 _eventAggregator.PublishOnUIThread($"Can't remove the following Person {SelectedItem.Id}");
             }
             SelectedItem = null;
+        }
+
+        public void Handle(PersonDetailsUpdate message)
+        {
+            if(message?.Person == null) return;
+
+            Person subscriber = Subscribers.FirstOrDefault(x=>x.Id == message.Person.Id);
+
+            if (subscriber == null) return;
+
+            subscriber.FirstName = message.Person.FirstName;
+            subscriber.LastName = message.Person.LastName;
+            subscriber.Email = message.Person.Email;
+            subscriber.Comment = message.Person.Comment;
+            Subscribers.Refresh();
+            //Subscribers.Remove(subscriber);
+            //Subscribers.Add(message.Person);
         }
     }
 }

@@ -8,17 +8,31 @@ namespace Trex2.ViewModels
 {
     public class DetailsFormViewModel : Screen, IDetailsFormViewModel, IHandle<SelectedItemChangedEvent>
     {
+        private readonly IEventAggregator _eventAggregator;
         private readonly IDetailsController _detailsController;
         private string _firstName;
         private string _lastName;
         private string _email;
         private string _comment;
         private int _id;
+        private bool _canUpdate;
 
         public DetailsFormViewModel(IEventAggregator eventAggregator, IDetailsController detailsController)
         {
+            _eventAggregator = eventAggregator;
             _detailsController = detailsController;
             eventAggregator.Subscribe(this);
+        }
+
+        public bool CanUpdate
+        {
+            get => _canUpdate;
+            set
+            {
+                if (value == _canUpdate) return;
+                _canUpdate = value;
+                NotifyOfPropertyChange();
+            }
         }
 
         public int Id
@@ -27,6 +41,7 @@ namespace Trex2.ViewModels
             set
             {
                 if (value == _id) return;
+                CanUpdate = value > 0;
                 _id = value;
                 NotifyOfPropertyChange();
             }
@@ -75,16 +90,25 @@ namespace Trex2.ViewModels
                 NotifyOfPropertyChange();
             }
         }
-        public void Update()
+        public async void Update()
         {
             var updatedDetails = new Person()
             {
+                Id = Id,
                 FirstName = FirstName,
                 LastName = LastName,
                 Email = Email,
                 Comment = Comment
             };
-            _detailsController.Put(Id, updatedDetails);
+            if (await _detailsController.Put(Id, updatedDetails))
+            {
+                _eventAggregator.PublishOnUIThread(new PersonDetailsUpdate(updatedDetails));
+            }
+            else
+            {
+                _eventAggregator.PublishOnUIThread("Person Details did not update.");
+            }
+           
         }
 
         public void Handle(SelectedItemChangedEvent message)
