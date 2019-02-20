@@ -8,6 +8,7 @@
         xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
         xmlns:cal="http://www.caliburnproject.org"
         mc:Ignorable="d"
+        SizeToContent="Height"
         Title="{Binding Title}" Height="450" Width="800">
 
     <ContentControl cal:View.Model="{Binding ActiveItem}"/>

@@ -41,6 +41,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Events\PersonAddEvent.cs" />
+    <Compile Include="Events\PersonDetailsUpdate.cs" />
+    <Compile Include="Events\SelectedItemChangedEvent.cs" />
     <Compile Include="Models\Person.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

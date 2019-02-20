@@ -7,11 +7,12 @@ namespace Trex2.ViewModels
     {
         private string _notificationArea;
 
-        public MainViewModel(IDetailsViewModel detailsViewModel, ISubscribersViewModel subscribersViewModel, IEventAggregator eventAggregator)
+        public MainViewModel(IDetailsViewModel detailsViewModel, ISubscribersViewModel subscribersViewModel, IDetailsFormViewModel detailsFormViewModel, IEventAggregator eventAggregator)
         {
             eventAggregator.Subscribe(this);
             Items.Add(detailsViewModel);
             Items.Add(subscribersViewModel);
+            Items.Add(detailsFormViewModel);
         }
 
         public string NotificationArea
