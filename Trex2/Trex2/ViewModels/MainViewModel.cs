@@ -33,7 +33,7 @@ namespace Trex2.ViewModels
 
         public void Handle(string notificationMessage)
         {
-            NotificationArea += notificationMessage;
+            NotificationArea = notificationMessage;
         }
 
         
