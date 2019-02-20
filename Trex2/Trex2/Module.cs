@@ -12,6 +12,7 @@ namespace Trex2
             builder.RegisterType<MainViewModel>().As<IMainViewModel>().SingleInstance();
             builder.RegisterType<DetailsViewModel>().As<IDetailsViewModel>().SingleInstance();
             builder.RegisterType<SubscribersViewModel>().As<ISubscribersViewModel>().SingleInstance();
+            builder.RegisterType<DetailsFormViewModel>().As<IDetailsFormViewModel>().SingleInstance();
         }
     }
 }

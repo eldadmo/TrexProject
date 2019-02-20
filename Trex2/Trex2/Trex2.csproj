@@ -145,15 +145,20 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Contracts\IDetailsFormViewModel.cs" />
     <Compile Include="Contracts\IDetailsViewModel.cs" />
     <Compile Include="Contracts\IShellWindowViewModel.cs" />
     <Compile Include="Contracts\ISubscribersViewModel.cs" />
     <Compile Include="Module.cs" />
     <Compile Include="Contracts\IMainViewModel.cs" />
+    <Compile Include="ViewModels\DetailsFormViewModel.cs" />
     <Compile Include="ViewModels\DetailsViewModel.cs" />
     <Compile Include="ViewModels\SubscribersViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\ShellWindowViewModel.cs" />
+    <Compile Include="Views\DetailsFormView.xaml.cs">
+      <DependentUpon>DetailsFormView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\DetailsView.xaml.cs">
       <DependentUpon>DetailsView.xaml</DependentUpon>
     </Compile>
@@ -179,6 +184,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Views\DetailsFormView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\DetailsView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
