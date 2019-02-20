@@ -6,43 +6,44 @@ using Trex2.Contracts;
 
 namespace Trex2.ViewModels
 {
-    public class DetailsViewModel : Screen , IDetailsViewModel
+    public class DetailsViewModel : Screen, IDetailsViewModel
     {
-        private readonly IEventAggregator _eventAggregator;
-        private string _firstName;
-        private string _lastName;
-        private bool _canSubmit;
-        private bool _isBusy;
+        private readonly IEventAggregator m_eventAggregator;
+        private string m_firstName;
+        private string m_lastName;
+        private string m_email;
+        private bool m_canSubmit;
+        private bool m_isBusy;
 
         public DetailsViewModel(IEventAggregator eventAggregator)
         {
-            _eventAggregator = eventAggregator;
+            m_eventAggregator = eventAggregator;
             CheckFields();
         }
 
         public bool IsBusy
         {
-            get => _isBusy;
+            get => m_isBusy;
             set
             {
-                if (value == _isBusy) return;
-                _isBusy = value;
+                if (value == m_isBusy) return;
+                m_isBusy = value;
                 NotifyOfPropertyChange();
             }
         }
 
         private void CheckFields()
         {
-            CanSubmit = !(string.IsNullOrEmpty(_firstName) || string.IsNullOrEmpty(_lastName));
+            CanSubmit = !(string.IsNullOrEmpty(m_firstName) || string.IsNullOrEmpty(m_lastName));
         }
 
         public string FirstName
         {
-            get => _firstName;
+            get => m_firstName;
             set
             {
-                if (value == _firstName) return;
-                _firstName = value;              
+                if (value == m_firstName) return;
+                m_firstName = value;
                 NotifyOfPropertyChange();
                 CheckFields();
             }
@@ -50,11 +51,11 @@ namespace Trex2.ViewModels
 
         public string LastName
         {
-            get => _lastName;
+            get => m_lastName;
             set
             {
-                if (value == _lastName) return;
-                _lastName = value;
+                if (value == m_lastName) return;
+                m_lastName = value;
                 NotifyOfPropertyChange();
                 CheckFields();
             }
@@ -62,12 +63,24 @@ namespace Trex2.ViewModels
 
         public bool CanSubmit
         {
-            get => _canSubmit;
+            get => m_canSubmit;
             set
             {
-                if (value == _canSubmit) return;
-                _canSubmit = value;
+                if (value == m_canSubmit) return;
+                m_canSubmit = value;
                 NotifyOfPropertyChange();
+            }
+        }
+
+        public string Email
+        {
+            get => m_email;
+            set
+            {
+                if (value == m_email) return;
+                m_email = value;
+                NotifyOfPropertyChange();
+                CheckFields();
             }
         }
 
@@ -78,10 +91,10 @@ namespace Trex2.ViewModels
             await Task.Run(() =>
             {
                 Task.Delay(350).Wait();
-                var person = new Person {FirstName = FirstName, LastName = LastName};
-                
-                _eventAggregator.PublishOnUIThread(new PersonAddEvent(person));
-            });         
+                var person = new Person { FirstName = FirstName, LastName = LastName, Email = Email };
+
+                m_eventAggregator.PublishOnUIThread(new PersonAddEvent(person));
+            });
             CanSubmit = true;
             IsBusy = false;
         }
