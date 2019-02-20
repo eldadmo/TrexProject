@@ -29,7 +29,8 @@ namespace Trex2.Services.Data
             m_createCommand = "'Id' INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,"+
             "'FirstName' TEXT NOT NULL,"+
             "'LastName' TEXT NOT NULL,"+
-            "'Email' TEXT";
+            "'Email' TEXT,"+
+            "'Comment' TEXT";
             SeedData();
             //By default it will not track
             //ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;
@@ -50,7 +51,7 @@ namespace Trex2.Services.Data
             if (PersonDetails.Any()) return;
             PersonDetails.AddRange(new List<Person>()
                 {
-                    new Person(){FirstName = "Eldad", LastName = "Michaeli", Email = ""}
+                    new Person(){FirstName = "Eldad", LastName = "Michaeli", Email = "Eldadmo@gmail.com"}
                 });
             SaveChanges();
         }

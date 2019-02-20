@@ -1,5 +1,6 @@
 ﻿using System.Threading.Tasks;
 using Caliburn.Micro;
+using Trex2.Common.Events;
 using Trex2.Common.Models;
 using Trex2.Contracts;
 
@@ -77,13 +78,12 @@ namespace Trex2.ViewModels
             await Task.Run(() =>
             {
                 Task.Delay(350).Wait();
-                var message = new Person {FirstName = FirstName, LastName = LastName};
-                _eventAggregator.PublishOnUIThread(message);
+                var person = new Person {FirstName = FirstName, LastName = LastName};
+                
+                _eventAggregator.PublishOnUIThread(new PersonAddEvent(person));
             });         
             CanSubmit = true;
             IsBusy = false;
         }
-
-
     }
 }

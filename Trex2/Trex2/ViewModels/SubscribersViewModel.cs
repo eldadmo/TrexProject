@@ -1,12 +1,14 @@
 ﻿using System.Linq;
+using System.Windows.Input;
 using Caliburn.Micro;
+using Trex2.Common.Events;
 using Trex2.Common.Models;
 using Trex2.Contracts;
 using Trex2.Services.Contracts;
 
 namespace Trex2.ViewModels
 {
-    public class SubscribersViewModel : Screen, ISubscribersViewModel, IHandle<Person>
+    public class SubscribersViewModel : Screen, ISubscribersViewModel, IHandle<PersonAddEvent>
     {
         private readonly IEventAggregator _eventAggregator;
         private readonly IDetailsController _detailsController;
@@ -64,27 +66,33 @@ namespace Trex2.ViewModels
             }
         }
 
-        public async void Handle(Person person)
+        public async void Handle(PersonAddEvent itemAddedEvent)
         {
-            if (person == null) return;
-            if (Subscribers.FirstOrDefault(x => x.Id == person.Id) != null)
+            if (itemAddedEvent?.Person == null) return;
+            if (Subscribers.FirstOrDefault(x => x.Id == itemAddedEvent.Person.Id) != null)
             {
                 _eventAggregator.PublishOnUIThread("Person is Already Exist");
             }
             else
             {
-                var details = await _detailsController.Post(person);
+                var details = await _detailsController.Post(itemAddedEvent.Person);
                 Subscribers.Add(details);
             }
                 
         }
-        
+
+        public void OnSelectedItem(object sender, MouseButtonEventArgs e)
+        {
+            if (SelectedItem !=null)
+            _eventAggregator.PublishOnUIThread(new SelectedItemChangedEvent(SelectedItem));
+        }
         public async void UnSubscribe()
         {
             if(SelectedItem==null) return;
             if (await _detailsController.Delete(SelectedItem.Id))
             {
                 Subscribers.Remove(SelectedItem);
+                _eventAggregator.PublishOnUIThread(new SelectedItemChangedEvent(SelectedItem));
             }
             else
             {
